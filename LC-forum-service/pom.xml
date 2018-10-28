@@ -6,4 +6,19 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>LC-forum-service</artifactId>
+
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.lc.forum</groupId>
+            <artifactId>LC-forum-util</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lc.forum</groupId>
+            <artifactId>LC-forum-model</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
