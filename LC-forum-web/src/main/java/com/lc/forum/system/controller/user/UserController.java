@@ -2,7 +2,6 @@ package com.lc.forum.system.controller.user;
 
 import com.fc.forum.system.model.User;
 import com.lc.forum.system.controller.user.service.UserService;
-import com.lc.forum.system.test.Test;
 import com.lc.forum.system.util.response.ActionResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
-
-import java.util.Date;
 
 /**
  * @author qiumin
