@@ -8,11 +8,14 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
+
+import javax.validation.Valid;
 
 /**
  * @author qiumin
@@ -37,8 +40,11 @@ public class UserController {
     })
     @ResponseBody
     @RequestMapping(value = "/addUser",method = {RequestMethod.GET,RequestMethod.POST})
-    public ActionResult addUser(@ApiIgnore User user){
+    public ActionResult addUser(@ApiIgnore @Valid User user, BindingResult result){
         try {
+            if (result.hasErrors()){
+                return ActionResult.failureParamter(result.getFieldError().getDefaultMessage());
+            }
             return userService.userRegister(user);
         }catch (Exception e){
             return ActionResult.failureServer("注册失败");

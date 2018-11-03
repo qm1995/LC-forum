@@ -8,4 +8,6 @@ import tk.mybatis.mapper.common.Mapper;
  * @desc
  **/
 public interface BaseDAO<T> extends Mapper<T> {
+
+
 }

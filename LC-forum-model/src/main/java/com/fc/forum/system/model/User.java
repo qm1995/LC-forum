@@ -1,6 +1,10 @@
 package com.fc.forum.system.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 /**
@@ -17,18 +21,22 @@ public class User {
     private Integer id;
 
     @Column(name = "username")
+    @NotBlank(message = "用户名不能为空")
     private String username;
 
     @Column(name = "nickName")
     private String nickName;
 
     @Column(name = "password")
+    @NotBlank(message = "密码不能为空")
+    @JsonIgnore
     private String password;
 
     @Column(name = "gender")
     private Integer gender;
 
     @Column(name = "email")
+    @NotBlank(message = "邮箱不能为空")
     private String email;
 
     @Column(name = "icon_image")
@@ -41,6 +49,7 @@ public class User {
     private Integer points;
 
     @Column(name = "birthday")
+    @JsonFormat(locale = "zh",timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date birthday;
 
     @Column(name = "self_introduction")
@@ -50,9 +59,11 @@ public class User {
     private String token;
 
     @Column(name = "login_time")
+    @JsonFormat(locale = "zh",timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date loginTime;
 
     @Column(name = "create_time")
+    @JsonFormat(locale = "zh",timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date createTime;
 
     @Column(name = "status")
@@ -177,4 +188,6 @@ public class User {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+
 }

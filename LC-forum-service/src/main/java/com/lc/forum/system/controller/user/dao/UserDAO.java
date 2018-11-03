@@ -3,6 +3,7 @@ package com.lc.forum.system.controller.user.dao;
 import com.fc.forum.system.model.User;
 import com.lc.forum.system.BaseDAO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author qiumin
@@ -10,5 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @desc
  **/
 @Mapper
+@Repository
 public interface UserDAO extends BaseDAO<User> {
+
 }
