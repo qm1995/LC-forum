@@ -1,7 +1,7 @@
-package com.lc.forum.system.controller.user;
+package com.lc.forum.system.user;
 
 import com.fc.forum.system.model.User;
-import com.lc.forum.system.controller.user.service.UserService;
+import com.lc.forum.system.user.service.UserService;
 import com.lc.forum.system.email.util.config.EmailConfig;
 import com.lc.forum.system.util.response.ActionResult;
 import io.swagger.annotations.Api;

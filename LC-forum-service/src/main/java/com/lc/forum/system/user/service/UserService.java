@@ -1,4 +1,4 @@
-package com.lc.forum.system.controller.user.service;
+package com.lc.forum.system.user.service;
 
 import com.fc.forum.system.model.User;
 import com.lc.forum.system.util.response.ActionResult;

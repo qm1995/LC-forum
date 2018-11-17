@@ -1,4 +1,4 @@
-package com.lc.forum.system.controller.user.dao;
+package com.lc.forum.system.user.dao;
 
 import com.fc.forum.system.model.User;
 import com.lc.forum.system.BaseDAO;

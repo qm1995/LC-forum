@@ -1,9 +1,9 @@
-package com.lc.forum.system.controller.user.service.impl;
+package com.lc.forum.system.user.service.impl;
 
 import com.fc.forum.system.model.User;
 import com.lc.forum.system.builder.MapperCriteriaBuilder;
-import com.lc.forum.system.controller.user.dao.UserDAO;
-import com.lc.forum.system.controller.user.service.UserService;
+import com.lc.forum.system.user.dao.UserDAO;
+import com.lc.forum.system.user.service.UserService;
 import com.lc.forum.system.util.response.ActionResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
