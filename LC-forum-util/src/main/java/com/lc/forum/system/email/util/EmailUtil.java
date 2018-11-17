@@ -11,7 +11,7 @@ import java.util.Properties;
  * @create 2018/11/9 21:10
  * @desc
  **/
-public class EamilUtil {
+public class EmailUtil {
 
     private static final EmailConfig CONFIG = new EmailConfig();
 
