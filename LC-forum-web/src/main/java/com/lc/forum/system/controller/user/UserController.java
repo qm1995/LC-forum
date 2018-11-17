@@ -2,6 +2,7 @@ package com.lc.forum.system.controller.user;
 
 import com.fc.forum.system.model.User;
 import com.lc.forum.system.controller.user.service.UserService;
+import com.lc.forum.system.email.util.config.EmailConfig;
 import com.lc.forum.system.util.response.ActionResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -9,10 +10,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
@@ -29,7 +27,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private EmailConfig mc;
 
     @ApiOperation("注册用户")
     @ApiImplicitParams({
@@ -50,5 +49,6 @@ public class UserController {
             return ActionResult.failureServer("注册失败");
         }
     }
+
 
 }
