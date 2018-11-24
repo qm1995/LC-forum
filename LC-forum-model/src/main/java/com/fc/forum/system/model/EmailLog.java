@@ -23,7 +23,7 @@ public class EmailLog {
     private String emailContent;
 
     @Column(name = "create_time")
-    private Date createTime;
+    private Date createTime = new Date();
 
     public Integer getId() {
         return id;

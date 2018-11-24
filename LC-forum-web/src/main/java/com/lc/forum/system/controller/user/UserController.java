@@ -33,9 +33,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private EmailConfig mc;
-
     @ApiOperation("注册用户")
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", name = "username", dataType = "String", required = true, value = "用户账号"),
@@ -100,6 +97,38 @@ public class UserController {
     public ActionResult reSendActiveCode(String username,String password,String email){
         try {
             return userService.reSendActiveCode(username,password,email);
+        }catch (Exception e){
+            BUSINESS.info(UserController.class.getName(),e);
+            return ActionResult.failureServer("注册失败");
+        }
+    }
+
+    @ApiOperation("获取用户名和临时密码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "email", dataType = "String", required = true, value = "用户邮箱"),
+    })
+    @ResponseBody
+    @RequestMapping(value = "/getUsernameAndTempPass",method = {RequestMethod.GET,RequestMethod.POST})
+    public ActionResult getUsernameAndTempPass(String email){
+        try {
+            return userService.getUsernameAndTempPass(email);
+        }catch (Exception e){
+            BUSINESS.info(UserController.class.getName(),e);
+            return ActionResult.failureServer("注册失败");
+        }
+    }
+
+    @ApiOperation("重置密码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "username", dataType = "String", required = true, value = "账号"),
+            @ApiImplicitParam(paramType = "query", name = "password", dataType = "String", required = true, value = "旧账号密码"),
+            @ApiImplicitParam(paramType = "query", name = "newPassword", dataType = "String", required = true, value = "新账号密码"),
+    })
+    @ResponseBody
+    @RequestMapping(value = "/resetPassword",method = {RequestMethod.GET,RequestMethod.POST})
+    public ActionResult resetPassword(String username,String password,String newPassword){
+        try {
+            return userService.resetPassword(username,password,newPassword);
         }catch (Exception e){
             BUSINESS.info(UserController.class.getName(),e);
             return ActionResult.failureServer("注册失败");

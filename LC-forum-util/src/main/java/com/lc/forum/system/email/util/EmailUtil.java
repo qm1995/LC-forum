@@ -51,7 +51,7 @@ public class EmailUtil {
         mailMessage.setTo(toUser);
 
         mailSender.send(mailMessage);
-        BUSINESS.info("发送邮件成功,接收者邮箱{},发送内容{}",toUser,content);
+        BUSINESS.info("发送邮件成功,接收者邮箱:{},发送内容:{}",toUser,content);
     }
 
     public void sendMail(String toUser,String content){

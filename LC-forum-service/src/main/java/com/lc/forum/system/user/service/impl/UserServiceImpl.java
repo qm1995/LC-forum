@@ -15,10 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.DigestUtils;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author qiumin
@@ -41,6 +38,15 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public ActionResult userRegister(User user) {
+
+        MapperCriteriaBuilder builder = MapperCriteriaBuilder.instances(User.class);
+        builder.addEq("email",user.getEmail());
+
+        List<User> users = userDAO.selectByExample(builder.getExample());
+        if (!users.isEmpty()){
+            return ActionResult.failureParamter("您的邮箱已经被注册,请尝试找回用户名或密码");
+        }
+
         String md5Pwd = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
         user.setPassword(md5Pwd);
         String token = user.getEmail()+"@"+UUID.randomUUID().toString().substring(0,31-user.getEmail().length());
@@ -159,5 +165,35 @@ public class UserServiceImpl implements UserService {
         emailLogDAO.insertSelective(log);
 
         return ActionResult.ok(null,"发送激活码成功");
+    }
+
+    @Override
+    public ActionResult getUsernameAndTempPass(String email) {
+        if (StringUtils.isBlank(email)){
+            return ActionResult.failureParamter("参数不能为空");
+        }
+        MapperCriteriaBuilder builder = MapperCriteriaBuilder.instances(User.class);
+        builder.addEq("email",email);
+        List<User> users = userDAO.selectByExample(builder.getExample());
+        if (users.isEmpty()){
+            return ActionResult.failureParamter("该邮箱未注册");
+        }
+        User user = users.get(0);
+        String password = "123456";
+        user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
+        userDAO.insertSelective(user);
+        String content = "您的用户名为:"+user.getUsername()+",临时密码:"+password+",请尽快修改密码";
+        emailUtil.sendEmail(email,"","来自Lc-forum的邮件");
+
+        EmailLog log = new EmailLog();
+        log.setToUser(email);
+        log.setEmailContent(content);
+        emailLogDAO.insertSelective(log);
+        return ActionResult.ok(null,"邮件发送成功");
+    }
+
+    @Override
+    public ActionResult resetPassword(String username, String password, String newPassword) {
+        return null;
     }
 }

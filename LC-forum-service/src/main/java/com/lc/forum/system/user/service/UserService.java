@@ -53,4 +53,20 @@ public interface UserService {
      * @return
      */
     ActionResult reSendActiveCode(String username, String password, String email);
+
+    /**
+     * 获取用户名和临时密码
+     * @param email
+     * @return
+     */
+    ActionResult getUsernameAndTempPass(String email);
+
+    /**
+     * 重置密码
+     * @param username
+     * @param password
+     * @param newPassword
+     * @return
+     */
+    ActionResult resetPassword(String username, String password,String newPassword);
 }
