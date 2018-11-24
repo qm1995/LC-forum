@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -56,5 +57,52 @@ public class UserController {
         }
     }
 
+    @ApiOperation("用户激活")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "username", dataType = "String", required = true, value = "用户激活码"),
+    })
+    @ResponseBody
+    @RequestMapping(value = "/active",method = {RequestMethod.GET,RequestMethod.POST})
+    public ActionResult activatingUser(String activeCode){
+        try {
+            if (StringUtils.isBlank(activeCode)){
+                return ActionResult.failureParamter("激活码错误");
+            }
+            return userService.activatingUser(activeCode);
+        }catch (Exception e){
+            BUSINESS.info(UserController.class.getName(),e);
+            return ActionResult.failureServer("注册失败");
+        }
+    }
 
+    @ApiOperation("用户登录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "username", dataType = "String", required = true, value = "账号"),
+            @ApiImplicitParam(paramType = "query", name = "password", dataType = "String", required = true, value = "账号密码"),
+    })
+    @ResponseBody
+    @RequestMapping(value = "/userLogin",method = {RequestMethod.GET,RequestMethod.POST})
+    public ActionResult userLogin(String username,String password){
+        try {
+            return userService.loginUser(username,password);
+        }catch (Exception e){
+            BUSINESS.info(UserController.class.getName(),e);
+            return ActionResult.failureServer("注册失败");
+        }
+    }
+
+    @ApiOperation("重新获取激活码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "email", dataType = "String", required = true, value = "用户邮箱"),
+    })
+    @ResponseBody
+    @RequestMapping(value = "/reSendActiveCode",method = {RequestMethod.GET,RequestMethod.POST})
+    public ActionResult reSendActiveCode(String username,String password,String email){
+        try {
+            return userService.reSendActiveCode(username,password,email);
+        }catch (Exception e){
+            BUSINESS.info(UserController.class.getName(),e);
+            return ActionResult.failureServer("注册失败");
+        }
+    }
 }

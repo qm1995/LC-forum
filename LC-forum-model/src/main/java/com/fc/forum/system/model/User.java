@@ -30,8 +30,8 @@ public class User {
     private String nickName;
 
     @Column(name = "password")
-    @NotBlank(message = "密码不能为空")
     @JsonIgnore
+    @NotBlank(message = "密码不能为空")
     private String password;
 
     @Column(name = "gender")

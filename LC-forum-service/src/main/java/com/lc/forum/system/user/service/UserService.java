@@ -37,4 +37,20 @@ public interface UserService {
      * @return
      */
     ActionResult loginUser(String username,String password);
+
+    /**
+     * 用户激活
+     * @param activeCode
+     * @return
+     */
+    ActionResult activatingUser(String activeCode);
+
+    /**
+     * 重新发送激活码
+     * @param username
+     * @param password
+     * @param email
+     * @return
+     */
+    ActionResult reSendActiveCode(String username, String password, String email);
 }

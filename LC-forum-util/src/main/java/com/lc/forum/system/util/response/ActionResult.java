@@ -10,19 +10,19 @@ import java.util.Objects;
 public class ActionResult {
 
     // 成功
-    private static final Integer SUCCESS_CODE = 200;
+    public static final Integer SUCCESS_CODE = 200;
 
     // 参数错误
-    private static final Integer PARAMTER_ERROR_CODE = 201;
+    public static final Integer PARAMTER_ERROR_CODE = 201;
 
     // 服务器错误
-    private static final Integer SERVER_ERROR_CODE = 500;
+    public static final Integer SERVER_ERROR_CODE = 500;
 
     // 非法请求
-    private static final Integer ILLEGAL_ERROR_CODE = 202;
+    public static final Integer ILLEGAL_ERROR_CODE = 202;
 
     // 用户未登录
-    private static final Integer LOGIN_ERROR_CODE = 204;
+    public static final Integer LOGIN_ERROR_CODE = 204;
 
 
     private Integer code;
