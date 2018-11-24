@@ -1,6 +1,7 @@
 package com.lc.forum.system.email.util.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @create 2018/11/9 20:57
  * @desc
  **/
-@Component
+@ConfigurationProperties
 public class EmailConfig {
 
     @Value("${stmp.host}")

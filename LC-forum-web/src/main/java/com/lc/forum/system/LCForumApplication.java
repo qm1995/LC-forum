@@ -16,7 +16,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @ComponentScan("com.lc.forum.*")
 @EnableTransactionManagement
-@MapperScan(basePackages = "com.lc.forum.system.*")
+@MapperScan(basePackages = "com.lc.forum.system.mapper")
 public class LCForumApplication extends SpringBootServletInitializer {
 
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {

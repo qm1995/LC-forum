@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
+import java.util.regex.Matcher;
 
 /**
  * @author qiumin
@@ -37,6 +39,7 @@ public class User {
 
     @Column(name = "email")
     @NotBlank(message = "邮箱不能为空")
+    @Pattern(regexp = "[A-Za-z\\d]+([-_.][A-Za-z\\d]+)*@([A-Za-z\\d]+[-.])+[A-Za-z\\d]{2,4}",message = "邮箱格式不对")
     private String email;
 
     @Column(name = "icon_image")
@@ -64,7 +67,7 @@ public class User {
 
     @Column(name = "create_time")
     @JsonFormat(locale = "zh",timezone = "GMT+8",pattern = "yyyy-MM-dd")
-    private Date createTime;
+    private Date createTime = new Date();
 
     @Column(name = "status")
     private Integer status;
@@ -189,5 +192,8 @@ public class User {
         this.status = status;
     }
 
-
+    public static void main(String[] args){
+        String regx = "^[A-Za-z\\d]+([-_.][A-Za-z\\d]+)*@([A-Za-z\\d]+[-.])+[A-Za-z\\d]{2,4}$";
+        System.out.println("123@qq.com".matches(regx));
+    }
 }

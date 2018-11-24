@@ -3,7 +3,7 @@ package com.lc.forum.system.user.service.impl;
 import com.fc.forum.system.model.User;
 import com.lc.forum.system.builder.MapperCriteriaBuilder;
 import com.lc.forum.system.email.util.EmailUtil;
-import com.lc.forum.system.user.dao.UserDAO;
+import com.lc.forum.system.mapper.user.dao.UserDAO;
 import com.lc.forum.system.user.service.UserService;
 import com.lc.forum.system.util.response.ActionResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +24,16 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDAO userDAO;
 
+    @Autowired
+    private EmailUtil emailUtil;
+
     @Override
     @Transactional
     public ActionResult userRegister(User user) {
         String md5Pwd = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
         user.setPassword(md5Pwd);
         userDAO.insertSelective(user);
-        EmailUtil.sendMail(user.getEmail(),"欢迎您注册!");
+        emailUtil.sendMail(user.getEmail(),"欢迎您注册!");
         return ActionResult.ok(null);
     }
 
