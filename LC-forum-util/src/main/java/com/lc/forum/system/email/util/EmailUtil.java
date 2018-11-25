@@ -22,6 +22,8 @@ public class EmailUtil {
 
     private static final Logger BUSINESS = LogFactory.getBusinessLog();
 
+    private final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
+
     @Autowired
     private  EmailConfig config;
 
@@ -35,9 +37,12 @@ public class EmailUtil {
         javaMailSender.setHost(config.getHost());
         javaMailSender.setUsername(config.getAccount());
         javaMailSender.setPassword(config.getPassword());
+        javaMailSender.setPort(config.getPort());
+        javaMailSender.setDefaultEncoding("UTF-8");
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", config.getIsAuth());
         properties.put("mail.smtp.timeout", config.getOutTime());
+        properties.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
         javaMailSender.setJavaMailProperties(properties);
         return javaMailSender;
     }

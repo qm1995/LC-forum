@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
+
 /**
  * @author qiumin
  * @create 2018/11/9 20:57
@@ -27,6 +29,8 @@ public class EmailConfig {
     @Value("${mail.smtp.timeout}")
     private String outTime;
 
+    @Value("${mail.stmp.port}")
+    private int port;
 
     public String getHost() {
         return host;
@@ -66,5 +70,13 @@ public class EmailConfig {
 
     public void setOutTime(String outTime) {
         this.outTime = outTime;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 }
