@@ -25,6 +25,8 @@ import java.util.*;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final String SPLIT_STR = "@@";
+
     @Autowired
     private UserDAO userDAO;
 
@@ -49,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
         String md5Pwd = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
         user.setPassword(md5Pwd);
-        String token = user.getEmail()+"@"+UUID.randomUUID().toString().substring(0,31-user.getEmail().length());
+        String token = user.getEmail()+ SPLIT_STR +UUID.randomUUID().toString().substring(0,30-user.getEmail().length());
         user.setToken(token);
         user.setStatus(1);
         user.setUserLevel(1);
@@ -103,7 +105,7 @@ public class UserServiceImpl implements UserService {
     public ActionResult activatingUser(String activeCode) {
         byte[] bytes = Base64Utils.decodeFromString(activeCode);
         String token = new String(bytes);
-        if (!token.contains("@")){
+        if (!token.contains(SPLIT_STR)){
             return ActionResult.failureParamter("激活码不存在");
         }
         MapperCriteriaBuilder builder = MapperCriteriaBuilder.instances(EmailLog.class);
@@ -153,7 +155,7 @@ public class UserServiceImpl implements UserService {
         if (ActionResult.SUCCESS_CODE.equals(actionResult.getCode())){
             return ActionResult.failureParamter("您已经激活成功,快去登录吧");
         }
-        String token = user.getEmail()+"@"+UUID.randomUUID().toString().substring(0,31-user.getEmail().length());
+        String token = user.getEmail() + SPLIT_STR + UUID.randomUUID().toString().substring(0,30-user.getEmail().length());
         user.setToken(token);
         emailUtil.sendRegisterEmail(user.getEmail(),Base64Utils.encodeToString(token.getBytes()));
 
