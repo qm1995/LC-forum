@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
             return ActionResult.failureParamter("激活码不存在");
         }
         MapperCriteriaBuilder builder = MapperCriteriaBuilder.instances(EmailLog.class);
-        builder.addEq("token",token);
+        builder.addEq("emailContent",token);
         List<EmailLog> emailLogs = emailLogDAO.selectByExample(builder.getExample());
         if (emailLogs.isEmpty() || emailLogs.size() > 1){
             return ActionResult.failureParamter("激活码错误");
