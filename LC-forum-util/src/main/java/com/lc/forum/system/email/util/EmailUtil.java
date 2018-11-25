@@ -64,7 +64,8 @@ public class EmailUtil {
     }
 
     public void sendRegisterEmail(String toUser,String token){
-        String content = "请访问链接http://39.108.68.216/user/active?activeCode="+token;
+        String a = "http://39.108.68.216:8080/user/active?activeCode="+token;
+        String content = "请访问链接<a href='"+a+"'>激活链接</a>";
         sendMail(toUser,content);
     }
 }

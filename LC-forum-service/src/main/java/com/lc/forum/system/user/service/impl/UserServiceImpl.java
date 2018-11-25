@@ -109,18 +109,19 @@ public class UserServiceImpl implements UserService {
             return ActionResult.failureParamter("激活码不存在");
         }
         MapperCriteriaBuilder builder = MapperCriteriaBuilder.instances(EmailLog.class);
-        builder.addEq("emailContent",token);
+        builder.addEq("toUser",token.split(SPLIT_STR)[0]);
+        builder.addOrderDesc("createTime");
         List<EmailLog> emailLogs = emailLogDAO.selectByExample(builder.getExample());
-        if (emailLogs.isEmpty() || emailLogs.size() > 1){
+        if (emailLogs.isEmpty()){
             return ActionResult.failureParamter("激活码错误");
         }
         EmailLog emailLog = emailLogs.get(0);
-        if (System.currentTimeMillis() - emailLog.getCreateTime().getTime() > 30 * 60 * 1000L){
+        if (!Objects.equals(token,emailLog.getEmailContent()) && System.currentTimeMillis() - emailLog.getCreateTime().getTime() > 30 * 60 * 1000L){
             return ActionResult.failureParamter("激活码已失效");
         }
 
         MapperCriteriaBuilder userBuilder = MapperCriteriaBuilder.instances(User.class);
-        userBuilder.addEq("email",token.split("@")[0]);
+        userBuilder.addEq("email",token.split(SPLIT_STR)[0]);
         List<User> users = userDAO.selectByExample(userBuilder.getExample());
         if (users.size() == 0){
             return ActionResult.failureParamter("激活码错误");
